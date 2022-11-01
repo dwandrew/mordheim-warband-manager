@@ -1,12 +1,9 @@
 import '../../App.css';
 import React, {useEffect, useState} from 'react';
 
-
-
 const ArmourScreen = () => {
 
   const [armour, setArmour] = useState()
-  
 
       const getArmour = () => {
         fetch(`https://mordheim-database.herokuapp.com/armours`)
@@ -45,13 +42,10 @@ const ArmourScreen = () => {
             }) : <p></p>}
             </div>
         )}
-      
       )
     )
     }
   
-
-
     return (
     <div style = {{flex: 1,}}>
       <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

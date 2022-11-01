@@ -22,30 +22,24 @@ const EquipmentScreen = () => {
         }
       }, []);
     
-
-
-
     return (
       <div style = {{marginBottom: 40}}>
-      <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <div className='grid-container'>
-        {!equipment ? <p>information loading</p> : 
-        equipment && equipment.map(e => {
-          let description = e.description.replace(/\  /g, "")
-          return(
-            <div className='grid-item' key= {e.id}>
-            <p style = {{fontWeight: "bold"}}>{e.name} </p>
-            <p style = {{fontStyle: "italic"}} >{e.cost} Gold crowns</p>
-            <p>{e.rarity}</p>
-            <p className='textBottom'>{description}</p>
-            </div>
-          )
-        })}
+        <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <div className='grid-container'>
+          {!equipment ? <p>information loading</p> : 
+          equipment && equipment.map(e => {
+            let description = e.description.replace(/\  /g, "")
+            return(
+              <div className='grid-item' key= {e.id}>
+                <p style = {{fontWeight: "bold"}}>{e.name} </p>
+                <p style = {{fontStyle: "italic"}} >{e.cost} Gold crowns</p>
+                <p>{e.rarity}</p>
+                <p className='textBottom'>{description}</p>
+              </div>)
+          })}
+          </div>
         </div>
-       
       </div>
-      </div>
-
     );
   }
 

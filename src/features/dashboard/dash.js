@@ -9,6 +9,7 @@ function Dashboard() {
             <ul style={{listStyle: "none"}}>
                 <li><Link to="armour">Armour page</Link></li>
                 <li><Link to="equipment">Equipment page</Link></li>
+                <li><Link to="mutations">Mutations page</Link></li>
             </ul>
         </nav>
       </div>
