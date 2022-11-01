@@ -1,4 +1,4 @@
-
+import '../../App.css';
 import React, {useEffect, useState} from 'react';
 
 
@@ -25,41 +25,10 @@ const ArmourScreen = () => {
         }
       }, []);
 
-      const styles = {
-        containerStyle: {
-            flex: 1,
-            flexDirection: "column",
-            justifyContent: 'space-around',
-            maxWidth: "100%",
-        },
-        button: {
-            alignItems: "center",
-            backgroundColor: "black",
-            borderRadius: 2,
-            padding: 10,
-            margin: 1
-          },
-        textContainerStyle: {
-            flex: 2,
-            flexDirection: 'column',
-            margin: 10,
-            marginBottom: 0,
-            justifyText: 'center',
-            maxWidth: "100%",
-            borderBottomColor: 'black',
-            borderBottomWidth: 1,
-            paddingBottom: 10
-            
-        },
-        textBottom:{
-          marginBottom: 10
-        }
-    }
-
     const displayArmour = () => {
       return( armour.map(w => {
         return(
-          <div style={styles.textContainerStyle} className='sausages' key={w.id}>
+          <div className='grid-item' key={w.id}>
             <p style = {{fontWeight: "bold"}}>{w.name}</p>
             <p style = {{fontStyle: "italic"}}>{w.cost !== "0" ? `${w.cost} Gold crowns` : "Free"}</p>
             <p>{w.rarity}</p>
@@ -70,7 +39,7 @@ const ArmourScreen = () => {
                 desc = desc.replace(/\  /g, "")
                 return(<>
                 <p style = {{fontStyle: "italic", fontWeight: "bold"}}>{name == "Shielded" ? "Optional rule: " : ""}{name}</p>
-                <p style = {styles.pBottom}>{desc}</p>
+                <p className='textBottom'>{desc}</p>
                 </>
                 )
             }) : <p></p>}
@@ -87,7 +56,7 @@ const ArmourScreen = () => {
     <div style = {{flex: 1,}}>
       <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         
-        <div style={styles.containerStyle}>
+        <div className='grid-container'>
         {!armour ? <p>information loading</p> :
         armour && displayArmour()}
         </div>

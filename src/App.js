@@ -1,5 +1,6 @@
 import React from 'react';
 import ArmourScreen from './features/armour/Armour'
+import EquipmentScreen from './features/equipment/equipment';
 import Dashboard from './features/dashboard/dash'
 import './App.css';
 import {
@@ -16,6 +17,7 @@ function App() {
         <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/armour" element={<ArmourScreen />} />
+            <Route path="/equipment" element={<EquipmentScreen />} />
         </Routes>
         </header>
       </BrowserRouter>
