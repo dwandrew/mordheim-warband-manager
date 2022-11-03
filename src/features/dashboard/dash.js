@@ -10,6 +10,7 @@ function Dashboard() {
                 <li><Link to="armour">Armour page</Link></li>
                 <li><Link to="equipment">Equipment page</Link></li>
                 <li><Link to="mutations">Mutations page</Link></li>
+                <li><Link to="scenarios">Scenarios page</Link></li>
             </ul>
         </nav>
       </div>

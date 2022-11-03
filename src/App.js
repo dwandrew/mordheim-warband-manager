@@ -3,6 +3,7 @@ import ArmourScreen from './features/armour/Armour'
 import EquipmentScreen from './features/equipment/equipment';
 import Dashboard from './features/dashboard/dash'
 import MutationsScreen from './features/mutations/mutations';
+import ScenarioScreen from './features/scenarios/scenarios';
 import './App.css';
 import {
   BrowserRouter,
@@ -20,6 +21,7 @@ function App() {
             <Route path="/armour" element={<ArmourScreen />} />
             <Route path="/equipment" element={<EquipmentScreen />} />
             <Route path="/mutations" element={<MutationsScreen />} />
+            <Route path="/scenarios" element={<ScenarioScreen />} />
         </Routes>
         </header>
       </BrowserRouter>

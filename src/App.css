@@ -58,3 +58,8 @@
   p {
     font-size: small;
   }
+
+  .inner-title{
+    font-weight: bold;
+    text-decoration: underline;
+  }
