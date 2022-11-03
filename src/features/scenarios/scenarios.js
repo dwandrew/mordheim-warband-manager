@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
-
 const ScenarioScreen = () => {
 
   const [scenarios, setScenarios] = useState()
-  
 
       const getScenarios = () => {
         fetch(`https://mordheim-database.herokuapp.com/scenarios`)
@@ -26,7 +24,6 @@ const ScenarioScreen = () => {
 
     const displayScenarios = () => {
       return( scenarios.map(s => {
-          
         return(
           <div className= "grid-item" key= {s.id}>
             <p style = {{fontWeight: "bold", fontSize: 16}}>{s.name} </p>
@@ -52,8 +49,7 @@ const ScenarioScreen = () => {
             <p  className= "inner-title">Special Rules: </p>
             <p >{s.special_rules} </p>
             </>
-            : null}
-                       
+            : null}     
         </div>
         )}
       

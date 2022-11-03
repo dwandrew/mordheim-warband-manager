@@ -4,6 +4,7 @@ import EquipmentScreen from './features/equipment/equipment';
 import Dashboard from './features/dashboard/dash'
 import MutationsScreen from './features/mutations/mutations';
 import ScenarioScreen from './features/scenarios/scenarios';
+import SkillScreen from './features/skills/skills';
 import './App.css';
 import {
   BrowserRouter,
@@ -22,6 +23,7 @@ function App() {
             <Route path="/equipment" element={<EquipmentScreen />} />
             <Route path="/mutations" element={<MutationsScreen />} />
             <Route path="/scenarios" element={<ScenarioScreen />} />
+            <Route path="/skills" element={<SkillScreen />} />
         </Routes>
         </header>
       </BrowserRouter>
