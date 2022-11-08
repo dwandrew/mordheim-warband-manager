@@ -63,3 +63,13 @@
     font-weight: bold;
     text-decoration: underline;
   }
+
+  .buttonClass {
+    align-Items: "center";
+    background-Color: "black";
+    border-Radius: 2;
+    padding: 10;
+    margin: 1;
+    width: "100%";
+    color: "white"
+  }

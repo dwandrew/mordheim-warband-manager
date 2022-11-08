@@ -23,18 +23,6 @@ const SkillScreen = () => {
         }
       }, []);
 
-      const styles = {
-        button: {
-            alignItems: "center",
-            backgroundColor: "black",
-            borderRadius: 2,
-            padding: 10,
-            margin: 1,
-            width: "100%",
-            color: "white"
-          }
-    }
-
     return (
       <div>
 
@@ -44,7 +32,7 @@ const SkillScreen = () => {
           return(
             <div className = 'grid-item' key= {s.key}>
                     <button 
-                    style={styles.button}
+                    className='buttonClass'
                     onClick={() => {setActiveSkill(s.key)}}
                   >{s.key[0].toUpperCase() + s.key.substring(1)}</button>
             </div>

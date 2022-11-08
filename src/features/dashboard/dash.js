@@ -12,6 +12,7 @@ function Dashboard() {
                 <li><Link to="mutations">Mutations page</Link></li>
                 <li><Link to="scenarios">Scenarios page</Link></li>
                 <li><Link to="skills">Skills page</Link></li>
+                <li><Link to="spells">Spells page</Link></li>
             </ul>
         </nav>
       </div>
