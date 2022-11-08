@@ -6,6 +6,7 @@ import MutationsScreen from './features/mutations/mutations';
 import ScenarioScreen from './features/scenarios/scenarios';
 import SkillScreen from './features/skills/skills';
 import SpellScreen from './features/spells/spells';
+import WeaponScreen from './features/weapons/weapons';
 import './App.css';
 import {
   BrowserRouter,
@@ -26,6 +27,7 @@ function App() {
             <Route path="/scenarios" element={<ScenarioScreen />} />
             <Route path="/skills" element={<SkillScreen />} />
             <Route path="/spells" element={<SpellScreen />} />
+            <Route path="/weapons" element={<WeaponScreen />} />
         </Routes>
         </header>
       </BrowserRouter>
