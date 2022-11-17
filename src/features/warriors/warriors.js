@@ -17,11 +17,13 @@ const WarriorScreen = () => {
   const [equipment_lists, setEquipmentLists] = useState()
   const [mutations, setMutations] = useState()
   const [showEquipment, setShowEquipment] = useState(false)
+  const [loadedState, setLoadedState] = useState(false)
 
       const getWarriors = () => {
         fetch(`https://mordheim-database.herokuapp.com/warriors`)
           .then((response) => response.json())
           .then((json) => {
+            console.log([...json])
             setWarriors([...json])
           })
           .catch((error) => {
@@ -33,6 +35,7 @@ const WarriorScreen = () => {
         fetch(`https://mordheim-database.herokuapp.com/equipment_lists`)
           .then((response) => response.json())
           .then((json) => {
+            console.log([...json])
             setEquipmentLists([...json])
           })
           .catch((error) => {
@@ -43,8 +46,8 @@ const WarriorScreen = () => {
       const getMutations = () => {
         fetch(`https://mordheim-database.herokuapp.com/mutations`)
           .then((response) => response.json())
-          .then((json) => {
-            
+          .then((json) => { 
+            console.log([...json])
             setMutations([...json])
           })
           .catch((error) => {
@@ -56,19 +59,31 @@ const WarriorScreen = () => {
         if(!warriors){
         getWarriors();
         }
+      }, [warriors]);
+
+      useEffect(() => {
         if(!equipment_lists){
-          getEquipmentLists()
+        getEquipmentLists();
         }
+      }, [equipment_lists]);
+
+      useEffect(() => {
         if(!mutations){
-          getMutations()
+        getMutations();
         }
-      }, []);
+      }, [mutations]);
+
+      useEffect(() => {
+        if(warriors && equipment_lists && mutations){
+          setLoadedState(true)
+        }
+      }, [warriors, equipment_lists, mutations]);
 
     const renderGridItem = ({item, index}) => {
         let title = item.key.split()
         title[0] = title[0].toUpperCase()
         title = title.join()
-        let width = Dimensions.get('window').width
+        let width = window.innerWidth
         let third = width/3
         let fontSize = third*0.1
         return(
@@ -121,19 +136,29 @@ const equipmentLists = ()=> {
 
 const statGrid = (numColumns, data) => {
 
-  const size = Dimensions.get('window').width/(numColumns+2);
-
-  return (
-    <FlatList
-      data={data}
-      renderItem={({item}) => (
-        <div style={styles.itemContainer}>
+  return (data.map(item => {
+    return (
+      <div className='grid-item' key={item.id}>
           <p style={styles.item}>{item.value}</p>
-        </div>
-      )}
-      keyExtractor={item => item.id}
-      numColumns={numColumns} />
-  );
+      </div>
+        )
+        }
+      )
+    )
+      // TO BE DELETED WHEN OTHER CODE TESTED
+  // return (
+  //   <FlatList
+  //     data={data}
+  //     renderItem={({item}) => (
+  //       <div style={styles.itemContainer}>
+  //         <p style={styles.item}>{item.value}</p>
+  //       </div>
+  //     )}
+  //     keyExtractor={item => item.id}
+  //     numColumns={numColumns} />
+  // );
+
+  
 }
 
 const itemGrid = (numColumns, data) => {
@@ -151,18 +176,20 @@ const itemGrid = (numColumns, data) => {
       item.cost = "15"
     }
   } )
-
-  return (data.map(item => {
+  
+  return (
+    <div className='grid-container' style = {{ gridTemplateColumns: `repeat(${numColumns}, auto)`}}>
+    {data.map(item => {
     return (
-      <div className='grid-item' key={w.id}>
+      <div className='grid-item' key={item.id}>
           <p style={styles.itemTitle}>{item.name}</p>
           <p style={styles.itemItalic}>{item.cost} gold crowns</p>
       </div>
+        )
+        }
+      )}
+      </div>
     )
-  }
-
-  )
-  )
   // TO BE DELETED WHEN OTHER CODE TESTED
   // return (
   //   <FlatList
@@ -181,6 +208,7 @@ const itemGrid = (numColumns, data) => {
   //     numColumns={numColumns} />
   // );
 }
+
 
 
       const styles = {
@@ -247,19 +275,15 @@ const itemGrid = (numColumns, data) => {
           marginBottom: 10
         }
     }
-
+    if (loadedState){
     return (
     <div style = {{flex: 1,}}>
           <div style = {{width: "100%"}}>
-            <FlatList
-              data ={warriorTypes}
-              renderItem = {renderGridItem}
-              numColumns = {"3"}
-              />
+            {renderGridItem(warriorTypes)}
           </div>
         <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <button 
-          style={styles.button}
+          className='buttonClass'
           onPress={() => {setShowEquipment(!showEquipment)}}
         >
           <p style = {{color: "white"}}>{showEquipment ? "Hide equipment list" : "Show equipment list"}</p>
@@ -341,6 +365,10 @@ const itemGrid = (numColumns, data) => {
       </div>
       </div>
     );
+    }
+    else{
+      return <p>Loading...</p>
+    }
   }
 
   export default WarriorScreen;

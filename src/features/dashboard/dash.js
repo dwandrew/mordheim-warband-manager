@@ -14,6 +14,7 @@ function Dashboard() {
                 <li><Link to="skills">Skills page</Link></li>
                 <li><Link to="spells">Spells page</Link></li>
                 <li><Link to="weapons">Weapons page</Link></li>
+                <li><Link to="warriors">Warriors page</Link></li>
             </ul>
         </nav>
       </div>
