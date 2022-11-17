@@ -1,12 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, Button, SafeAreaView, ScrollView, TouchableOpacity, FlatList, Dimensions} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { withOrientation } from 'react-navigation';
 
-const WarriorScreen = ({ navigation }) => {
+
+const WarriorScreen = () => {
 
   const [warriors, setWarriors] = useState()
   const warriorTypes = [
@@ -63,11 +58,9 @@ const WarriorScreen = ({ navigation }) => {
         }
         if(!equipment_lists){
           getEquipmentLists()
-          
         }
         if(!mutations){
           getMutations()
-          
         }
       }, []);
 
@@ -79,50 +72,50 @@ const WarriorScreen = ({ navigation }) => {
         let third = width/3
         let fontSize = third*0.1
         return(
-          <View style ={{flex: 1, margin: "auto",}}>
-          <TouchableOpacity 
-          style={styles.button}
-          onPress={() => {setActiveWarrior(item.key)}}
+          <div style ={{flex: 1, margin: "auto",}}>
+          <button 
+          className = 'buttonClass'
+          onClick={() => {setActiveWarrior(item.key)}}
         >
-          <Text style = {{color: "white", fontSize: fontSize}}>{title}</Text>
-          </TouchableOpacity>
-          </View>
+          <p style = {{color: "white", fontSize: fontSize}}>{title}</p>
+          </button>
+          </div>
         )
       }
 
 const equipmentLists = ()=> {
-  return(<View>{
+  return(<div>{
   equipment_lists && equipment_lists.map(el => {
         if (el.warband.toUpperCase() == activeWarrior.toUpperCase()){
           return(
-          <View style={{width: "95%", textAlign: "center"}}>
-            <Text style={styles.itemTitle}>{el.name}</Text>
-              <Text style={[styles.itemItalic, {borderBottomWidth: 1, marginTop: 3, marginBottom: 3}]}>Weapons</Text>
+          <div style={{width: "95%", textAlign: "center"}}>
+            <p style={styles.itemTitle}>{el.name}</p>
+              <p style={[styles.itemItalic, {borderBottomWidth: 1, marginTop: 3, marginBottom: 3}]}>Weapons</p>
                 {itemGrid(2, el.weapons)}
                 {el.armours.length >0 && <>
               
-              <Text style={[styles.itemItalic,  {borderBottomWidth: 1, marginTop: 3, marginBottom: 3}]}>Armour</Text>
+              <p style={[styles.itemItalic,  {borderBottomWidth: 1, marginTop: 3, marginBottom: 3}]}>Armour</p>
                 {itemGrid(2, el.armours)}
                 </>
                 }
                 {el.equipments.length >0 && <>
               
-              <Text style={[styles.itemItalic,  {borderBottomWidth: 1, marginTop: 3, marginBottom: 3}]}>Equipment</Text>
+              <p style={[styles.itemItalic,  {borderBottomWidth: 1, marginTop: 3, marginBottom: 3}]}>Equipment</p>
                 {itemGrid(2, el.equipments)}
                 </>
                 }
-              <View style={{borderBottomWidth: 1, marginTop: 3, marginBottom: 10, borderStyle: "dashed"}}></View>
-          </View>)
+              <div style={{borderBottomWidth: 1, marginTop: 3, marginBottom: 10, borderStyle: "dashed"}}></div>
+          </div>)
         }
       })
 }
 {activeWarrior == "Cult of the possessed" && <>
-                <Text style={[styles.itemItalic,  {borderBottomWidth: 1, marginTop: 3, marginBottom: 3}]}>Mutations</Text>
+                <p style={[styles.itemItalic,  {borderBottomWidth: 1, marginTop: 3, marginBottom: 3}]}>Mutations</p>
                 {itemGrid(2, mutations)}
-                <View style={{borderBottomWidth: 1, marginTop: 3, marginBottom: 10, borderStyle: "dashed"}}></View>
+                <div style={{borderBottomWidth: 1, marginTop: 3, marginBottom: 10, borderStyle: "dashed"}}></div>
                 </>}
 
-</View>)
+</div>)
 }
   
 
@@ -134,9 +127,9 @@ const statGrid = (numColumns, data) => {
     <FlatList
       data={data}
       renderItem={({item}) => (
-        <View style={styles.itemContainer}>
-          <Text style={styles.item}>{item.value}</Text>
-        </View>
+        <div style={styles.itemContainer}>
+          <p style={styles.item}>{item.value}</p>
+        </div>
       )}
       keyExtractor={item => item.id}
       numColumns={numColumns} />
@@ -158,22 +151,35 @@ const itemGrid = (numColumns, data) => {
       item.cost = "15"
     }
   } )
-  return (
-    <FlatList
-      style = {{width: "100%", marginBottom: 10}}
-      data={data}
-      renderItem={({item}) => (
-        <View style= {{height: 40, flex: 1, flexShrink: 1, width: "50%"}}>
-          <Text style={styles.itemTitle}>{item.name}</Text>
-          <Text style={styles.itemItalic}>{item.cost} gold crowns</Text>
-          {/* <Text style={styles.itemNoBorder}>{item.name == "Blessed water" ? "Common" : item.rarity.split("(")[0]}</Text> */}
-          {/* <Text style={styles.itemNoBorder}>{item.range !== "Close Combat" ? "Range: " : ""}{item.range}</Text>
-          <Text style={styles.itemNoBorder}>Strength: {item.strength}</Text> */}
-        </View>
-      )}
-      keyExtractor={item => item.id}
-      numColumns={numColumns} />
-  );
+
+  return (data.map(item => {
+    return (
+      <div className='grid-item' key={w.id}>
+          <p style={styles.itemTitle}>{item.name}</p>
+          <p style={styles.itemItalic}>{item.cost} gold crowns</p>
+      </div>
+    )
+  }
+
+  )
+  )
+  // TO BE DELETED WHEN OTHER CODE TESTED
+  // return (
+  //   <FlatList
+  //     style = {{width: "100%", marginBottom: 10}}
+  //     data={data}
+  //     renderItem={({item}) => (
+  //       <div style= {{height: 40, flex: 1, flexShrink: 1, width: "50%"}}>
+  //         <p style={styles.itemTitle}>{item.name}</p>
+  //         <p style={styles.itemItalic}>{item.cost} gold crowns</p>
+  //         {/* <p style={styles.itemNoBorder}>{item.name == "Blessed water" ? "Common" : item.rarity.split("(")[0]}</p> */}
+  //         {/* <p style={styles.itemNoBorder}>{item.range !== "Close Combat" ? "Range: " : ""}{item.range}</p>
+  //         <p style={styles.itemNoBorder}>Strength: {item.strength}</p> */}
+  //       </div>
+  //     )}
+  //     keyExtractor={item => item.id}
+  //     numColumns={numColumns} />
+  // );
 }
 
 
@@ -231,7 +237,7 @@ const itemGrid = (numColumns, data) => {
             flexDirection: 'column',
             margin: 10,
             marginBottom: 0,
-            justifyText: 'center',
+            justifyp: 'center',
             maxWidth: "100%",
             borderBottomColor: 'black',
             borderBottomWidth: 1,
@@ -243,31 +249,31 @@ const itemGrid = (numColumns, data) => {
     }
 
     return (
-    <View style = {{flex: 1,}}>
-          <View style = {{width: "100%"}}>
+    <div style = {{flex: 1,}}>
+          <div style = {{width: "100%"}}>
             <FlatList
               data ={warriorTypes}
               renderItem = {renderGridItem}
               numColumns = {"3"}
               />
-          </View>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <TouchableOpacity 
+          </div>
+        <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <button 
           style={styles.button}
           onPress={() => {setShowEquipment(!showEquipment)}}
         >
-          <Text style = {{color: "white"}}>{showEquipment ? "Hide equipment list" : "Show equipment list"}</Text>
-        </TouchableOpacity>
-        </View>
+          <p style = {{color: "white"}}>{showEquipment ? "Hide equipment list" : "Show equipment list"}</p>
+        </button>
+        </div>
 
-      <View style = {{marginBottom: 100}}>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <View style = {{flex: 1, width: "100%"}}>
+      <div style = {{marginBottom: 100}}>
+      <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <div style = {{flex: 1, width: "100%"}}>
           {showEquipment ? equipmentLists() : null}
-        </View>
+        </div>
         
-        <View style={styles.containerStyle}>
-        {!warriors ? <Text>information loading</Text> :
+        <div style={styles.containerStyle}>
+        {!warriors ? <p>information loading</p> :
 
         warriors && warriors.map(w => {
           if (w.warband == activeWarrior){
@@ -294,46 +300,46 @@ const itemGrid = (numColumns, data) => {
                     ]
 
           return(
-            <View style={styles.textContainerStyle} key= {w.id}>
-            <Text style = {{fontWeight: "bold"}}>{w.name} </Text>
-            <Text style = {{fontStyle: "italic"}}>{w.cost !== "0" ? `${w.cost} Gold crowns` : "Free"}</Text>
-            <Text style = {{fontStyle: "italic", fontWeight: "bold"}}>{w.warrior_type}</Text>
-            <Text>{description}</Text>
-            <View style = {{marginTop: 10, marginBottom: 10}}>
+            <div style={styles.textContainerStyle} key= {w.id}>
+            <p style = {{fontWeight: "bold"}}>{w.name} </p>
+            <p style = {{fontStyle: "italic"}}>{w.cost !== "0" ? `${w.cost} Gold crowns` : "Free"}</p>
+            <p style = {{fontStyle: "italic", fontWeight: "bold"}}>{w.warrior_type}</p>
+            <p>{description}</p>
+            <div style = {{marginTop: 10, marginBottom: 10}}>
             {statGrid(9, stats)}
-            </View>
-            <View style = {{marginBottom: 10}}>
-            <Text style = {{fontWeight: "bold"}} >Equipment list:</Text>
+            </div>
+            <div style = {{marginBottom: 10}}>
+            <p style = {{fontWeight: "bold"}} >Equipment list:</p>
             {w.equipment_lists  !== [] ? w.equipment_lists.map(e_l => {
-                return(<Text>{w.name}'s can use equipment from the {e_l.name}</Text>)})
-                 : <Text>{w.name}'s cannot use equipment</Text>}
-            {/* <Text style = {styles.textBottom}>Strength: {w.strength}</Text> */}
-            </View>
-            <View style = {{marginBottom: 10}}>
+                return(<p>{w.name}'s can use equipment from the {e_l.name}</p>)})
+                 : <p>{w.name}'s cannot use equipment</p>}
+            {/* <p style = {styles.textBottom}>Strength: {w.strength}</p> */}
+            </div>
+            <div style = {{marginBottom: 10}}>
             {w.skills!== [] ? w.skills.map(r => {
                 let name = r.name.replace(/\_/g, "-")
                 let desc = r.description.replace(/\_/g, "-")
                 desc = desc.trim()
                 return(<>
-                <Text style = {{fontStyle: "italic", fontWeight: "bold"}}>{name}</Text>
-                <Text style = {{fontStyle: "italic"}}>{r.skill_type} skill</Text>
-                <Text style = {styles.textBottom}>{desc}</Text>
+                <p style = {{fontStyle: "italic", fontWeight: "bold"}}>{name}</p>
+                <p style = {{fontStyle: "italic"}}>{r.skill_type} skill</p>
+                <p style = {styles.textBottom}>{desc}</p>
                 </>
                 )
             }) : null}
-            </View>
-            </View>
+            </div>
+            </div>
           )
         }
         }
         )
         }
-        </View>
+        </div>
        
-      </View>
+      </div>
 
-      </View>
-      </View>
+      </div>
+      </div>
     );
   }
 

@@ -43,7 +43,7 @@ const WeaponScreen = () => {
                 <button
                   className='buttonClass'
                   onClick={() => { setActiveWeapon(s.key) }}
-                  style={{ color: "white", }}
+                  style={{ color: "black", }}
                 >{title}</button>
               </div>
             )
@@ -57,7 +57,7 @@ const WeaponScreen = () => {
   const closeCombatWeapons = () => {
     return (weapons.map(w => {
       return (
-        <div className='grid-container' key={w.id}>
+        <div className='grid-item' key={w.id}>
           <p style={{ fontWeight: "bold" }}>{w.name} </p>
           <p style={{ fontStyle: "italic" }}>{w.cost !== "0" ? `${w.cost} Gold crowns` : "Free"}</p>
           <p>{w.rarity}</p>
@@ -83,7 +83,7 @@ const WeaponScreen = () => {
   const ranged_Weapons = () => {
     return (rangedWeapons.map(w => {
       return (
-        <div className='grid-container' key={w.id}>
+        <div className='grid-item' key={w.id}>
           <p style={{ fontWeight: "bold" }}>{w.name} </p>
           <p style={{ fontStyle: "italic" }}>{w.cost !== "0" ? `${w.cost} Gold crowns` : "Free"}</p>
           <p>{w.rarity}</p>
