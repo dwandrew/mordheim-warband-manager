@@ -83,19 +83,35 @@ const WarriorScreen = () => {
         let title = item.key.split()
         title[0] = title[0].toUpperCase()
         title = title.join()
-        let width = window.innerWidth
-        let third = width/3
-        let fontSize = third*0.1
         return(
           <div style ={{flex: 1, margin: "auto",}}>
           <button 
           className = 'buttonClass'
           onClick={() => {setActiveWarrior(item.key)}}
         >
-          <p style = {{color: "white", fontSize: fontSize}}>{title}</p>
+          <p>{title}</p>
           </button>
           </div>
         )
+      }
+
+      const warriorTypesGrid = () => {
+        let grid  = warriorTypes.map(item => {
+        let title = item.key.split()
+        title[0] = title[0].toUpperCase()
+        title = title.join()
+        return(
+          <div className='grid-item'>
+          <button 
+          className = 'buttonClass'
+          onClick={() => {setActiveWarrior(item.key)}}
+        >
+          <p>{title}</p>
+          </button>
+          </div>
+        )
+      })
+      return grid
       }
 
 const equipmentLists = ()=> {
@@ -278,8 +294,9 @@ const itemGrid = (numColumns, data) => {
     if (loadedState){
     return (
     <div style = {{flex: 1,}}>
-          <div style = {{width: "100%"}}>
-            {renderGridItem(warriorTypes)}
+          <div className='grid-container'>
+            {/* {warriorTypes.map(w=>renderGridItem(w))} */}
+            {warriorTypesGrid()}
           </div>
         <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <button 
