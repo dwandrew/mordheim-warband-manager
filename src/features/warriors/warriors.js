@@ -35,7 +35,7 @@ const WarriorScreen = () => {
         fetch(`https://mordheim-database.herokuapp.com/equipment_lists`)
           .then((response) => response.json())
           .then((json) => {
-            console.log([...json])
+            console.log("equipment: ", [...json])
             setEquipmentLists([...json])
           })
           .catch((error) => {
@@ -79,29 +79,13 @@ const WarriorScreen = () => {
         }
       }, [warriors, equipment_lists, mutations]);
 
-    const renderGridItem = ({item, index}) => {
-        let title = item.key.split()
-        title[0] = title[0].toUpperCase()
-        title = title.join()
-        return(
-          <div style ={{flex: 1, margin: "auto",}}>
-          <button 
-          className = 'buttonClass'
-          onClick={() => {setActiveWarrior(item.key)}}
-        >
-          <p>{title}</p>
-          </button>
-          </div>
-        )
-      }
-
       const warriorTypesGrid = () => {
         let grid  = warriorTypes.map(item => {
         let title = item.key.split()
         title[0] = title[0].toUpperCase()
         title = title.join()
         return(
-          <div className='grid-item'>
+          <div className='grid-item' key = {item.key}>
           <button 
           className = 'buttonClass'
           onClick={() => {setActiveWarrior(item.key)}}
@@ -116,23 +100,23 @@ const WarriorScreen = () => {
 
 const equipmentLists = ()=> {
   return(<div>{
-  equipment_lists && equipment_lists.map(el => {
+    equipment_lists.map(el => {
         if (el.warband.toUpperCase() == activeWarrior.toUpperCase()){
           return(
-          <div style={{width: "95%", textAlign: "center"}}>
+          <div style={{textAlign: "center"}}>
             <p style={styles.itemTitle}>{el.name}</p>
-              <p style={[styles.itemItalic, {borderBottomWidth: 1, marginTop: 3, marginBottom: 3}]}>Weapons</p>
-                {itemGrid(2, el.weapons)}
+              <p>Weapons</p>
+                {itemGrid(5, el.weapons)}
+
                 {el.armours.length >0 && <>
-              
-              <p style={[styles.itemItalic,  {borderBottomWidth: 1, marginTop: 3, marginBottom: 3}]}>Armour</p>
-                {itemGrid(2, el.armours)}
+              <p >Armour</p>
+                {itemGrid(5, el.armours)}
                 </>
                 }
-                {el.equipments.length >0 && <>
+                {el.equipments.length > 0 && <>
               
-              <p style={[styles.itemItalic,  {borderBottomWidth: 1, marginTop: 3, marginBottom: 3}]}>Equipment</p>
-                {itemGrid(2, el.equipments)}
+              <p >Equipment</p>
+                {itemGrid(5, el.equipments)}
                 </>
                 }
               <div style={{borderBottomWidth: 1, marginTop: 3, marginBottom: 10, borderStyle: "dashed"}}></div>
@@ -141,8 +125,8 @@ const equipmentLists = ()=> {
       })
 }
 {activeWarrior == "Cult of the possessed" && <>
-                <p style={[styles.itemItalic,  {borderBottomWidth: 1, marginTop: 3, marginBottom: 3}]}>Mutations</p>
-                {itemGrid(2, mutations)}
+                <p>Mutations</p>
+                {itemGrid(4, mutations)}
                 <div style={{borderBottomWidth: 1, marginTop: 3, marginBottom: 10, borderStyle: "dashed"}}></div>
                 </>}
 
@@ -152,7 +136,9 @@ const equipmentLists = ()=> {
 
 const statGrid = (numColumns, data) => {
 
-  return (data.map(item => {
+
+  return (<div className='grid-container' style = {{gridTemplateColumns: `repeat(${numColumns}, auto)`}} >
+    {data.map(item => {
     return (
       <div className='grid-item' key={item.id}>
           <p style={styles.item}>{item.value}</p>
@@ -160,7 +146,7 @@ const statGrid = (numColumns, data) => {
         )
         }
       )
-    )
+}</div>)
       // TO BE DELETED WHEN OTHER CODE TESTED
   // return (
   //   <FlatList
@@ -198,31 +184,14 @@ const itemGrid = (numColumns, data) => {
     {data.map(item => {
     return (
       <div className='grid-item' key={item.id}>
-          <p style={styles.itemTitle}>{item.name}</p>
-          <p style={styles.itemItalic}>{item.cost} gold crowns</p>
+          <p>{item.name}</p>
+          <p>{item.cost} gold crowns</p>
       </div>
         )
         }
       )}
       </div>
     )
-  // TO BE DELETED WHEN OTHER CODE TESTED
-  // return (
-  //   <FlatList
-  //     style = {{width: "100%", marginBottom: 10}}
-  //     data={data}
-  //     renderItem={({item}) => (
-  //       <div style= {{height: 40, flex: 1, flexShrink: 1, width: "50%"}}>
-  //         <p style={styles.itemTitle}>{item.name}</p>
-  //         <p style={styles.itemItalic}>{item.cost} gold crowns</p>
-  //         {/* <p style={styles.itemNoBorder}>{item.name == "Blessed water" ? "Common" : item.rarity.split("(")[0]}</p> */}
-  //         {/* <p style={styles.itemNoBorder}>{item.range !== "Close Combat" ? "Range: " : ""}{item.range}</p>
-  //         <p style={styles.itemNoBorder}>Strength: {item.strength}</p> */}
-  //       </div>
-  //     )}
-  //     keyExtractor={item => item.id}
-  //     numColumns={numColumns} />
-  // );
 }
 
 
@@ -295,15 +264,14 @@ const itemGrid = (numColumns, data) => {
     return (
     <div style = {{flex: 1,}}>
           <div className='grid-container'>
-            {/* {warriorTypes.map(w=>renderGridItem(w))} */}
             {warriorTypesGrid()}
           </div>
         <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <button 
           className='buttonClass'
-          onPress={() => {setShowEquipment(!showEquipment)}}
+          onClick={() => {setShowEquipment(!showEquipment)}}
         >
-          <p style = {{color: "white"}}>{showEquipment ? "Hide equipment list" : "Show equipment list"}</p>
+          <p>{showEquipment ? "Hide equipment list" : "Show equipment list"}</p>
         </button>
         </div>
 
